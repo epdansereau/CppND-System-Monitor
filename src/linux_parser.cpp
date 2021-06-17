@@ -79,7 +79,7 @@ string get_value(string line){
 // TODO: Read and return the system memory utilization
 float LinuxParser::MemoryUtilization() {
   string line;
-  std::ifstream stream(kProcDirectory + kMeminfoFilename);
+  std::ifstream stream(kProcDirectory);
   std::getline(stream, line);
   float  MemTotal = stof(get_value(line));
   std::getline(stream, line);
@@ -171,7 +171,7 @@ int LinuxParser::TotalProcesses() {
   string line;
   string key;
   int value;
-  std::ifstream filestream(kProcDirectory + kMeminfoFilename);
+  std::ifstream filestream(kProcDirectory + kStatFilename);
   if (filestream.is_open()) {
     while (std::getline(filestream, line)) {
       std::istringstream linestream(line);
@@ -190,7 +190,7 @@ int LinuxParser::RunningProcesses() {
   string line;
   string key;
   int value;
-  std::ifstream filestream(kProcDirectory + kMeminfoFilename);
+  std::ifstream filestream(kProcDirectory + kStatFilename);
   if (filestream.is_open()) {
     while (std::getline(filestream, line)) {
       std::istringstream linestream(line);
