@@ -3,6 +3,7 @@
 #include "format.h"
 
 using std::string;
+using std::to_string;
 
 // TODO: Complete this helper function
 // INPUT: Long int measuring seconds
@@ -15,8 +16,8 @@ string Format::ElapsedTime(long seconds) {
     long MM = seconds / 60;
     seconds -= MM*60;
     long SS = seconds;
-    string sHH = HH < 10 ? "0" + sHH : sHH;
-    string sMM = MM < 10 ? "0" + sMM : sMM;
-    string sSS = SS < 10 ? "0" + sSS : sSS;
+    string sHH = HH < 10 ? "0" + to_string(HH) : to_string(HH);
+    string sMM = MM < 10 ? "0" + to_string(MM) : to_string(MM);
+    string sSS = SS < 10 ? "0" + to_string(SS) : to_string(SS);
     return sHH + ":" + sMM + ":" + sSS;
 }
