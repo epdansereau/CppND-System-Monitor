@@ -27,7 +27,7 @@ string LinuxParser::OperatingSystem() {
       while (linestream >> key >> value) {
         if (key == "PRETTY_NAME") {
           std::replace(value.begin(), value.end(), '_', ' ');
-          return value;
+          break;
         }
       }
     }
@@ -68,35 +68,36 @@ vector<int> LinuxParser::Pids() {
   return pids;
 }
 
+// Get second word in a line
+string get_value(string line){
+  string key, value;
+  std::istringstream linestream(line);
+  linestream >> key >> value;
+  return value;
+}
+
 // TODO: Read and return the system memory utilization
-float LinuxParser::MemoryUtilization() { 
-  string key;
-  int MemTotal;
-  int MemFree;
+float LinuxParser::MemoryUtilization() {
   string line;
   std::ifstream stream(kProcDirectory + kMeminfoFilename);
   std::getline(stream, line);
-  std::istringstream linestream(line);
-  linestream >> key >> MemTotal;
-  assert(key == "MemTotal:");
+  float  MemTotal = stof(get_value(line));
   std::getline(stream, line);
-  std::istringstream linestream(line);
-  linestream >> key >> MemFree;
-  assert(key == "MemFree:");
+  float  MemFree = stof(get_value(line));
   return MemTotal - MemFree;
 }
 
 // TODO: Read and return the system uptime
 long LinuxParser::UpTime() {
-  int uptime;
+  long uptime;
   string line;
   std::ifstream stream(kProcDirectory + kUptimeFilename);
   if (stream.is_open()) {
     std::getline(stream, line);
     std::istringstream linestream(line);
     linestream >> uptime;
-    return uptime;
   }
+  return uptime;
 }
 
 // TODO: Read and return the number of jiffies for the system
@@ -177,10 +178,11 @@ int LinuxParser::TotalProcesses() {
       linestream >> key;
       if (key == "processes"){
         linestream >> value;
-        return value;
+        break;
       }
     }
   }
+  return value;
 }
 
 // TODO: Read and return the number of running processes
@@ -195,10 +197,11 @@ int LinuxParser::RunningProcesses() {
       linestream >> key;
       if (key == "procs_running"){
         linestream >> value;
-        return value;
+        break;
       }
     }
   }
+  return value;
 }
 
 // TODO: Read and return the command associated with a process
@@ -211,8 +214,8 @@ string LinuxParser::Command(int pid) {
     std::getline(filestream, line);
     std::istringstream linestream(line);
     linestream >> command;
-    return command;
   }
+  return command;
 }
 
 // TODO: Read and return the memory used by a process
@@ -228,10 +231,11 @@ string LinuxParser::Ram(int pid) {
       linestream >> key;
       if (key == "VmSize:"){
         linestream >> ram;
-        return ram;
+        break;
       }
     }
   }
+  return ram;
 }
 
 // TODO: Read and return the user ID associated with a process
@@ -247,10 +251,11 @@ string LinuxParser::Uid(int pid) {
       linestream >> key;
       if (key == "Uid:"){
         linestream >> uid;
-        return uid;
+        break;
       }
     }
   }
+  return uid;
 }
 
 // TODO: Read and return the user associated with a process
@@ -266,11 +271,11 @@ string LinuxParser::User(int pid) {
       std::replace(line.begin(), line.end(), ':', ' ');
       linestream >> user >> pswd >> line_uid;
       if (line_uid == uid){
-        return user;
+        break;
       }
     }
   }
-  return string(); 
+  return user; 
 }
 
 // TODO: Read and return the uptime of a process

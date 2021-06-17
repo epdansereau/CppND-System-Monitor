@@ -1,7 +1,7 @@
-#include "processor.h";
-#include "linux_parser.h";
-#include <vector>;
-#include <string>;
+#include "processor.h"
+#include "linux_parser.h"
+#include <vector>
+#include <string>
 using namespace LinuxParser;
 using std::vector;
 using std::string;

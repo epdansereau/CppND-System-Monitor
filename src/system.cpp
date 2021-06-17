@@ -16,13 +16,12 @@ using std::vector;
 
 // TODO: Return the system's CPU
 Processor& System::Cpu() {
-    Processor proc = Processor();
-    return proc;
+    cpu_ = Processor();
+    return cpu_;
 }
 
 // TODO: Return a container composed of the system's processes
 vector<Process>& System::Processes() {
-    vector<Process> processes_;
     vector<int> pids = LinuxParser::Pids();
     for (int pid : pids){
         processes_.push_back(Process(pid));
@@ -57,5 +56,5 @@ int System::TotalProcesses() {
 
 // TODO: Return the number of seconds since the system started running
 long int System::UpTime() {
-    LinuxParser::UpTime();
+    return LinuxParser::UpTime();
 }
