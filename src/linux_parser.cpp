@@ -27,7 +27,7 @@ string LinuxParser::OperatingSystem() {
       while (linestream >> key >> value) {
         if (key == "PRETTY_NAME") {
           std::replace(value.begin(), value.end(), '_', ' ');
-          break;
+          return value;
         }
       }
     }
@@ -178,7 +178,7 @@ int LinuxParser::TotalProcesses() {
       linestream >> key;
       if (key == "processes"){
         linestream >> value;
-        break;
+        return value;
       }
     }
   }
@@ -197,7 +197,7 @@ int LinuxParser::RunningProcesses() {
       linestream >> key;
       if (key == "procs_running"){
         linestream >> value;
-        break;
+        return value;
       }
     }
   }
@@ -231,7 +231,7 @@ string LinuxParser::Ram(int pid) {
       linestream >> key;
       if (key == "VmSize:"){
         linestream >> ram;
-        break;
+        return ram;
       }
     }
   }
@@ -251,7 +251,7 @@ string LinuxParser::Uid(int pid) {
       linestream >> key;
       if (key == "Uid:"){
         linestream >> uid;
-        break;
+        return uid;
       }
     }
   }
@@ -271,7 +271,7 @@ string LinuxParser::User(int pid) {
       std::replace(line.begin(), line.end(), ':', ' ');
       linestream >> user >> pswd >> line_uid;
       if (line_uid == uid){
-        break;
+        return user;
       }
     }
   }
