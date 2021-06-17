@@ -10,6 +10,6 @@ using std::stol;
 // TODO: Return the aggregate CPU utilization
 
 float Processor::Utilization() {
-    float u = LinuxParser::ActiveJiffies() / LinuxParser::Jiffies();
+    float u = double(LinuxParser::ActiveJiffies()) / double(LinuxParser::Jiffies());
     return u;
 }
