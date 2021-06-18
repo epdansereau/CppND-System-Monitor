@@ -13,6 +13,7 @@ using std::set;
 using std::size_t;
 using std::string;
 using std::vector;
+using std::sort;
 
 // TODO: Return the system's CPU
 Processor& System::Cpu() {
@@ -26,6 +27,7 @@ vector<Process>& System::Processes() {
     for (int pid : pids){
         processes_.push_back(Process(pid));
     };
+    sort(processes_.begin(),processes_.end());
     return processes_;
 }
 
