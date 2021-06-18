@@ -79,7 +79,7 @@ string get_value(string line){
 // TODO: Read and return the system memory utilization
 float LinuxParser::MemoryUtilization() {
   string line;
-  std::ifstream stream(kProcDirectory);
+  std::ifstream stream(kProcDirectory + kMeminfoFilename);
   std::getline(stream, line);
   float  MemTotal = stof(get_value(line));
   std::getline(stream, line);
