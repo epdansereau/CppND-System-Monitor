@@ -217,7 +217,7 @@ string LinuxParser::Command(int pid) {
 string LinuxParser::Ram(int pid) {
   string key;
   string line;
-  string ram;
+  long ram;
   std::ifstream filestream(kProcDirectory + to_string(pid) + kStatusFilename);
   if (filestream.is_open()) {
     while (std::getline(filestream, line)) {
@@ -225,11 +225,12 @@ string LinuxParser::Ram(int pid) {
       linestream >> key;
       if (key == "VmSize:") {
         linestream >> ram;
-        return ram;
+        ram /= 1024;
+        return to_string(ram);
       }
     }
   }
-  return ram;
+  return string();
 }
 
 // Read and return the user ID associated with a process
@@ -282,6 +283,6 @@ long LinuxParser::UpTime(int pid) {
       linestream >> value;
     };
   }
-  long uptime = std::stoi(value) / sysconf(_SC_CLK_TCK);
+  long uptime = LinuxParser::UpTime() - std::stoi(value) / sysconf(_SC_CLK_TCK);
   return uptime;
 }
