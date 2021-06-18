@@ -7,8 +7,7 @@ using std::vector;
 using std::string;
 using std::stol;
 
-// TODO: Return the aggregate CPU utilization
-
+// Return the aggregate CPU utilization
 float Processor::Utilization() {
     float u = double(LinuxParser::ActiveJiffies()) / double(LinuxParser::Jiffies());
     return u;
