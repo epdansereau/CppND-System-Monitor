@@ -267,8 +267,8 @@ string LinuxParser::User(int pid) {
   std::ifstream filestream(kPasswordPath);
   if (filestream.is_open()) {
     while(std::getline(filestream, line)){
-      std::istringstream linestream(line);
       std::replace(line.begin(), line.end(), ':', ' ');
+      std::istringstream linestream(line);
       linestream >> user >> pswd >> line_uid;
       if (line_uid == uid){
         return user;
