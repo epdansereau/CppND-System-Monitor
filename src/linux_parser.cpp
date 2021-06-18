@@ -100,7 +100,6 @@ long LinuxParser::UpTime() {
 
 // Read and return the number of jiffies for the system
 long LinuxParser::Jiffies() {
-  vector<string> data = LinuxParser::CpuUtilization();
   return LinuxParser::ActiveJiffies() + LinuxParser::IdleJiffies();
 }
 
