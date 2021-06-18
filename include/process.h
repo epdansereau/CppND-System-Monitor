@@ -9,16 +9,16 @@ It contains relevant attributes as shown below
 class Process {
  public:
   Process(int pid);
-  int Pid();                               
-  std::string User();                      
-  std::string Command();                   
+  int Pid();
+  std::string User();
+  std::string Command();
   float CpuUtilization() const;
-  std::string Ram();                       
-  long int UpTime();                       
-  bool operator<(Process const& a) const;  
+  std::string Ram();
+  long int UpTime();
+  bool operator<(Process const& a) const;
 
  private:
-   int pid_;
+  int pid_;
 };
 
 #endif

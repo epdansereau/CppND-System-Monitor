@@ -1,14 +1,17 @@
 #include "processor.h"
-#include "linux_parser.h"
-#include <vector>
+
 #include <string>
+#include <vector>
+
+#include "linux_parser.h"
 using namespace LinuxParser;
-using std::vector;
-using std::string;
 using std::stol;
+using std::string;
+using std::vector;
 
 // Return the aggregate CPU utilization
 float Processor::Utilization() {
-    float u = double(LinuxParser::ActiveJiffies()) / double(LinuxParser::Jiffies());
-    return u;
+  float u =
+      double(LinuxParser::ActiveJiffies()) / double(LinuxParser::Jiffies());
+  return u;
 }
